@@ -9,7 +9,7 @@
 
 <p>
   <img src="https://img.shields.io/badge/Go-1.22+-00ADD8?logo=go&logoColor=white" alt="Go 1.22+">
-  <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License: MIT">
+  <img src="https://img.shields.io/badge/License-AGPL--3.0-blue.svg" alt="License: AGPL-3.0">
 </p>
 
 </div>
@@ -145,4 +145,4 @@ GOOS=linux GOARCH=arm64 go build -o zasca-gateway-arm64 ./cmd/gateway/
 
 ## 许可证
 
-MIT License - 查看 [LICENSE](LICENSE) 文件了解详情。
+AGPL-3.0 License - 查看 [LICENSE](LICENSE) 文件了解详情。
