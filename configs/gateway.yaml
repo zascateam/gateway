@@ -1,0 +1,22 @@
+server:
+  host: "0.0.0.0"
+  port: 9000
+
+tunnel:
+  port: 9000
+  heartbeat_sec: 30
+  timeout_sec: 90
+  max_connections: 1000
+
+rdp:
+  port: 443
+  tls_cert: "/etc/zasca/tls/cert.pem"
+  tls_key: "/etc/zasca/tls/key.pem"
+  rdp_domain: "zasca.com"
+
+control:
+  socket_path: "/run/zasca/control.sock"
+
+logging:
+  level: "info"
+  format: "json"
