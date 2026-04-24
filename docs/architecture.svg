@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" font-family="system-ui,-apple-system,sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="gw" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="comp" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="user" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="10" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#64748b"/>
+    </marker>
+    <marker id="arrowBlue" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="10" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#60a5fa"/>
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 6" refX="10" refY="3" markerWidth="10" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#34d399"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="520" rx="12" fill="url(#bg)"/>
+
+  <text x="450" y="38" text-anchor="middle" fill="#f1f5f9" font-size="20" font-weight="700">ZASCA 网关架构</text>
+
+  <!-- 用户 / RDP客户端 -->
+  <g filter="url(#shadow)">
+    <rect x="30" y="200" width="120" height="80" rx="8" fill="url(#user)"/>
+    <text x="90" y="235" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">RDP客户端</text>
+    <text x="90" y="255" text-anchor="middle" fill="#fef3c7" font-size="10">mstsc.exe</text>
+  </g>
+
+  <!-- 网关外框 -->
+  <rect x="220" y="70" width="460" height="400" rx="12" fill="none" stroke="#3b82f6" stroke-width="2" stroke-dasharray="6,3" opacity="0.4"/>
+  <text x="450" y="92" text-anchor="middle" fill="#60a5fa" font-size="14" font-weight="600">ZASCA 网关</text>
+
+  <!-- RDP代理 -->
+  <g filter="url(#shadow)">
+    <rect x="250" y="110" width="180" height="90" rx="8" fill="url(#gw)"/>
+    <text x="340" y="145" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">RDP代理</text>
+    <text x="340" y="163" text-anchor="middle" fill="#bfdbfe" font-size="10">TLS :443</text>
+    <text x="340" y="180" text-anchor="middle" fill="#bfdbfe" font-size="9">SNI → 域名路由</text>
+  </g>
+
+  <!-- WSS隧道服务 -->
+  <g filter="url(#shadow)">
+    <rect x="470" y="110" width="180" height="90" rx="8" fill="url(#gw)"/>
+    <text x="560" y="145" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">WSS隧道服务</text>
+    <text x="560" y="163" text-anchor="middle" fill="#bfdbfe" font-size="10">WebSocket :9000</text>
+    <text x="560" y="180" text-anchor="middle" fill="#bfdbfe" font-size="9">连接池 + 心跳检测</text>
+  </g>
+
+  <!-- 控制面Socket -->
+  <g filter="url(#shadow)">
+    <rect x="340" y="240" width="220" height="80" rx="8" fill="url(#comp)"/>
+    <text x="450" y="272" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">控制面Socket</text>
+    <text x="450" y="290" text-anchor="middle" fill="#e9d5ff" font-size="10">Unix域套接字</text>
+    <text x="450" y="305" text-anchor="middle" fill="#e9d5ff" font-size="9">msgpack协议</text>
+  </g>
+
+  <!-- 域名路由器 -->
+  <g filter="url(#shadow)">
+    <rect x="250" y="360" width="180" height="70" rx="8" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1"/>
+    <text x="340" y="390" text-anchor="middle" fill="#93c5fd" font-size="12" font-weight="600">域名路由器</text>
+    <text x="340" y="410" text-anchor="middle" fill="#64748b" font-size="9">域名 → 隧道Token</text>
+  </g>
+
+  <!-- 隧道连接池 -->
+  <g filter="url(#shadow)">
+    <rect x="470" y="360" width="180" height="70" rx="8" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1"/>
+    <text x="560" y="390" text-anchor="middle" fill="#93c5fd" font-size="12" font-weight="600">隧道连接池</text>
+    <text x="560" y="410" text-anchor="middle" fill="#64748b" font-size="9">Token → 隧道连接</text>
+  </g>
+
+  <!-- ZASCA Django -->
+  <g filter="url(#shadow)">
+    <rect x="730" y="200" width="140" height="100" rx="8" fill="url(#comp)"/>
+    <text x="800" y="240" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">ZASCA</text>
+    <text x="800" y="258" text-anchor="middle" fill="#e9d5ff" font-size="10">Django平台</text>
+    <text x="800" y="278" text-anchor="middle" fill="#c4b5fd" font-size="9">网关客户端</text>
+  </g>
+
+  <!-- 边缘隧道 -->
+  <g filter="url(#shadow)">
+    <rect x="730" y="380" width="140" height="80" rx="8" fill="url(#edge)"/>
+    <text x="800" y="415" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">边缘代理</text>
+    <text x="800" y="435" text-anchor="middle" fill="#a7f3d0" font-size="10">zasca-tunnel</text>
+  </g>
+
+  <!-- Windows主机 -->
+  <g filter="url(#shadow)">
+    <rect x="730" y="60" width="140" height="70" rx="8" fill="#334155"/>
+    <text x="800" y="92" text-anchor="middle" fill="#e2e8f0" font-size="12" font-weight="600">Windows主机</text>
+    <text x="800" y="110" text-anchor="middle" fill="#94a3b8" font-size="9">RDP :3389</text>
+  </g>
+
+  <!-- 连线 -->
+  <line x1="150" y1="240" x2="248" y2="155" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="185" y="185" fill="#fbbf24" font-size="8" transform="rotate(-30,185,185)">TLS/RDP</text>
+
+  <line x1="340" y1="200" x2="340" y2="358" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrowBlue)"/>
+
+  <line x1="430" y1="395" x2="468" y2="395" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+
+  <line x1="560" y1="200" x2="560" y2="358" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrowBlue)"/>
+
+  <line x1="650" y1="155" x2="728" y2="420" stroke="#34d399" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <text x="710" y="290" fill="#6ee7b7" font-size="8" transform="rotate(60,710,290)">WSS隧道</text>
+
+  <line x1="800" y1="380" x2="800" y2="132" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrow)"/>
+  <text x="810" y="260" fill="#94a3b8" font-size="8">本地:3389</text>
+
+  <line x1="560" y1="280" x2="728" y2="250" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="660" y="258" fill="#c4b5fd" font-size="8">Unix套接字</text>
+
+  <path d="M340,200 L340,240 L450,240 L450,358" fill="none" stroke="#60a5fa" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#arrowBlue)" opacity="0.5"/>
+
+  <!-- 图例 -->
+  <g transform="translate(30,440)">
+    <rect width="200" height="70" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <circle cx="20" cy="18" r="6" fill="#3b82f6"/><text x="35" y="22" fill="#94a3b8" font-size="9">网关组件</text>
+    <circle cx="20" cy="38" r="6" fill="#8b5cf6"/><text x="35" y="42" fill="#94a3b8" font-size="9">控制面</text>
+    <circle cx="20" cy="58" r="6" fill="#10b981"/><text x="35" y="62" fill="#94a3b8" font-size="9">边缘代理</text>
+    <circle cx="120" cy="18" r="6" fill="#f59e0b"/><text x="135" y="22" fill="#94a3b8" font-size="9">用户/客户端</text>
+  </g>
+</svg>
