@@ -55,7 +55,7 @@ func Default() *Config {
 			MaxConnections: 1000,
 		},
 		RDP: RDPConfig{
-			Port:      443,
+			Port:      3389,
 			TLSCert:   "/etc/zasca/tls/cert.pem",
 			TLSKey:    "/etc/zasca/tls/key.pem",
 			RDPDomain: "zasca.com",

@@ -2,6 +2,7 @@ package rdp
 
 import (
 	"crypto/tls"
+	"fmt"
 	"net"
 	"sync"
 
@@ -34,7 +35,8 @@ func (p *Proxy) Start() error {
 		Certificates: []tls.Certificate{cert},
 	}
 
-	ln, err := tls.Listen("tcp", ":443", tlsCfg)
+	addr := fmt.Sprintf(":%d", p.cfg.Port)
+	ln, err := tls.Listen("tcp", addr, tlsCfg)
 	if err != nil {
 		return err
 	}
